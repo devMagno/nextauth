@@ -1,10 +1,11 @@
 import { FormEvent, useContext, useState } from "react";
-import type { NextPage } from "next";
+
+import { AuthContext } from "../contexts/AuthContext";
+import { withSSRGuest } from "../utils/withSSRGuest";
 
 import styles from "../styles/Home.module.css";
-import { AuthContext } from "../contexts/AuthContext";
 
-const Home: NextPage = () => {
+export default function Home() {
   const [email, setEmail] = useState("diego@rocketseat.team");
   const [password, setPassword] = useState("123456");
 
@@ -36,6 +37,8 @@ const Home: NextPage = () => {
       <button type="submit">Entrar</button>
     </form>
   );
-};
+}
 
-export default Home;
+export const getServerSideProps = withSSRGuest(async () => {
+  return { props: {} };
+});
